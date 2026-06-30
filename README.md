@@ -116,11 +116,28 @@ PYTHONPATH=src uv run python scripts/run_evaluation.py
 ```bash
 PYTHONPATH=src uv run python scripts/run_llm_before_after_eval.py --model-id TinyLlama/TinyLlama-1.1B-Chat-v1.0
 ```
-7. Validate notebook preconditions:
+7. High-coverage bypass stress run (200+ attack variations):
+```bash
+PYTHONPATH=src uv run python scripts/prepare_data.py --limit 240
+PYTHONPATH=src uv run python scripts/train_token_classifier.py
+PYTHONPATH=src uv run python scripts/precompute_embeddings.py --force-hashing
+PYTHONPATH=src uv run python scripts/run_llm_before_after_eval.py --model-id TinyLlama/TinyLlama-1.1B-Chat-v1.0 --max-new-tokens 64
+```
+
+### High-Coverage Run Snapshot (Current Artifacts)
+Latest run produced the following values from persisted artifacts:
+- Dataset split counts (artifacts/datasets/splits_manifest.json): train=705, validation=235, test=236
+- Curated adversarial source count (artifacts/datasets/splits_manifest.json): curated_adversarial_pack=190
+- LLM before/after evaluated rows (artifacts/metrics/llm_before_after_summary.json): total_rows=236, attack_rows=234, benign_rows=2
+- LLM injection success rates (artifacts/metrics/llm_before_after_summary.json): before=0.9872, after=0.0000, reduction=0.9872
+
+This high-coverage mode is intended for stress testing guardrail robustness against broad prompt-variation families.
+
+8. Validate notebook preconditions:
 ```bash
 PYTHONPATH=src uv run python scripts/validate_notebook.py
 ```
-8. Execute notebook rendering:
+9. Execute notebook rendering:
 ```bash
 uv run jupyter nbconvert --to notebook --execute notebooks/evaluation_report.ipynb --output evaluation_report.executed.ipynb
 ```

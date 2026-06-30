@@ -1,0 +1,51 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build and packaging artifacts
+build/
+dist/
+wheels/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test, coverage, and type-checker caches
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.pyre/
+.hypothesis/
+
+# Lint and formatter caches
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs and local runtime artifacts
+*.log
+logs/
+artifacts/
+data/processed/
+
+# Local tool caches
+.cache/
+
+# Optional local Python version pinning (uncomment if machine-local only)
+# .python-version
